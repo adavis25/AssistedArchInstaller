@@ -54,6 +54,5 @@ read
 echo "Enter root Password"
 arch-chroot /mnt passwd
 
-echo "Poweroff?"
-read poweroff
-poweroff
+arch-chroot curl -LO larbs.xyz/larbs.sh
+arch-chroot sh larbs.sh

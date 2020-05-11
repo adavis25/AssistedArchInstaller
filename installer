@@ -10,11 +10,11 @@ lsblk
 read
 
 #File Systems
-mkfs.ext4 /dev/sda1
 mkswap /dev/sda2
+swapon /dev/sda2 
+mkfs.ext4 /dev/sda1
 mkfs.ext4 /dev/sda3
 mkfs.ext4 /dev/sda4
-swapon /dev/sda2 
 mount /dev/sda3 /mnt
 mkdir /mnt/home
 mkdir /mnt/boot
@@ -27,7 +27,7 @@ pacman -Syy
 pacman -S reflector
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
-read
+read 
 
 #Base install
 pacstrap /mnt base base-devel linux linux-firmware git networkmanager vim netctl
@@ -35,6 +35,7 @@ pacstrap /mnt base base-devel linux linux-firmware git networkmanager vim netctl
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
+read 
 arch-chroot /mnt hwclock --systohc
 
 arch-chroot /mnt echo "en_US UTF.8 UTF-8" >> /etc/locale.gen
@@ -53,6 +54,3 @@ read
 #Password
 echo "Enter root Password"
 arch-chroot /mnt passwd
-
-arch-chroot curl -LO larbs.xyz/larbs.sh
-arch-chroot sh larbs.sh

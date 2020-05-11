@@ -27,30 +27,10 @@ pacman -Syy
 pacman -S reflector
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
-read 
 
 #Base install
 pacstrap /mnt base base-devel linux linux-firmware git networkmanager vim netctl
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
-arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
-read 
-arch-chroot /mnt hwclock --systohc
-
-arch-chroot /mnt echo "en_US UTF.8 UTF-8" >> /etc/locale.gen
-arch-chroot /mnt locale-gen
-
-arch-chroot /mnt echo LANG=en-US.UTF-8 >> /etc/locale.conf
-arch-chroot /mnt export LANG=en_US.UTF-8
-arch-chroot /mnt echo archpad >> /etc/hostname
-
-#Grub Time
-arch-chroot /mnt pacman -S grub
-arch-chroot /mnt grub-install --target=i386-pc /dev/sda 
-arch-chroot /mnt grub-mkconfig -o /boot.grub.cfg
-read
-
-#Password
-echo "Enter root Password"
-arch-chroot /mnt passwd
+arch-chroot /mnt
